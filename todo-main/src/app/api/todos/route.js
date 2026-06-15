@@ -8,7 +8,7 @@ export async function GET() {
     const allTodos = await Todo.aggregate([
       { $match: { completed: true } },
       {
-        
+        //hi everyone
         $group: {
           _id: null,
           completedtask: { $sum: 1 }

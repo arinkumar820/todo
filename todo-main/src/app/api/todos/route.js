@@ -37,7 +37,11 @@ export async function POST(request) {
   try {
     await connectDB()
     const RData = await request.json()
-    const NewTodo = new Todo(RData)
+    const result = createtodoSchema.safeParse(RData) // Validate the request data against the schema
+    if (!result.success) {
+      return NextResponse.json({ error: result.error.message }, { status: 400 })
+    }
+    const NewTodo = new Todo(result.data) // Use the validated data to create a new Todo
     await NewTodo.save()
     return NextResponse.json(NewTodo)
 

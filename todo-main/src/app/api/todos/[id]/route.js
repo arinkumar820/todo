@@ -11,9 +11,9 @@ export async function PUT(request, { params }) {
     const newUpdateData = await request.json()
     const todoId = params.id
 
-    const { error } = createtodoSchema.safeParse(newUpdateData) // Validate the new update data against the schema
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 400 })
+    const result = createtodoSchema.safeParse(newUpdateData) // Validate the new update data against the schema
+    if (!result.success) {
+      return NextResponse.json({ error: result.error.message }, { status: 400 })
     }
 
     const updatedTodo = await Todo.findByIdAndUpdate(todoId, newUpdateData, { new: true }).safeParse() // Validate the updated data against the schema

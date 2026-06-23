@@ -1,8 +1,9 @@
-import {betterAuth} from "betterAuth.js"
+import {betterAuth} from "better-auth"
+import { Db } from "mongodb"
 
 export const auth = betterAuth({
-    database: "mongodb://localhost:27017/auratodo",
-    emailandPassword: {
+    database: Db,
+    emailAndPassword: {
         enabled: true,
     }
 })        

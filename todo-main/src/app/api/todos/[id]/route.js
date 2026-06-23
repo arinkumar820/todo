@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import connectDB from '@/lib/mongodb'
 import Todo from '@/models/Todo'
+import createtodoSchema from '@/Validation/to.validation'
 
 export async function PUT(request, { params }) {
   try {
@@ -10,8 +11,12 @@ export async function PUT(request, { params }) {
     const newUpdateData = await request.json()
     const todoId = params.id
 
- 
-    const updatedTodo = await Todo.findByIdAndUpdate(todoId, newUpdateData, { new: true })
+    const { error } = createtodoSchema.safeParse(newUpdateData) // Validate the new update data against the schema
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 400 })
+    }
+
+    const updatedTodo = await Todo.findByIdAndUpdate(todoId, newUpdateData, { new: true }).safeParse() // Validate the updated data against the schema
 
     if (!updatedTodo) {
       const notFoundError = { error: 'Task not found' }

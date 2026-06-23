@@ -1,13 +1,15 @@
-import mongoose from "mongoose";
-import{z}   from "zod";
+// CHANGED: Fixed typo in transform, removed the description field requirement to match model/UI,
+// and added category & dueDate fields. Added named/default exports for the schemas,
+// including a partial update schema to support single-field updates like toggles.
+import { z } from "zod";
 
-
-const createtodoSchema = z.object({
-    title: z.string().min(3, { message: "Title must be at least 3 characters long" }).trasform((val) => val.trim()),
-    description: z.string().min(5, { message: "Description must be at least 5 characters long" }),
-    completed: z.boolean().optional(),
+export const createtodoSchema = z.object({
+  title: z.string().min(3, { message: "Title must be at least 3 characters long" }).transform((val) => val.trim()),
+  category: z.string().optional(),
+  dueDate: z.string().optional(),
+  completed: z.boolean().optional(),
 });
 
+export const updatetodoSchema = createtodoSchema.partial();
 
-
-// Export the schema for use in other parts of the application
+export default createtodoSchema;

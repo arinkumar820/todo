@@ -680,3 +680,104 @@ body {
     text-align: center;
   }
 }
+
+/* Custom Analytics & Dashboard enhancements */
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.analytics-mini-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.analytics-mini-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(99, 102, 241, 0.2);
+}
+
+.mini-card-val {
+  font-family: var(--font-title);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.mini-card-val.color-primary { color: var(--primary); }
+.mini-card-val.color-secondary { color: var(--secondary); }
+.mini-card-val.color-success { color: var(--success); }
+.mini-card-val.color-danger { color: var(--danger); }
+
+.mini-card-lbl {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.category-stats-title {
+  font-family: var(--font-title);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-top: 24px;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+}
+
+.category-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.category-stat-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cat-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cat-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.cat-dot-work { background-color: #818cf8; }
+.cat-dot-setup { background-color: #fbbf24; }
+.cat-dot-deploy { background-color: #22d3ee; }
+.cat-dot-design { background-color: #c084fc; }
+.cat-dot-general { background-color: #94a3b8; }
+
+.cat-name {
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.cat-nums {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.cat-nums span {
+  font-weight: 700;
+  color: var(--text-primary);
+}

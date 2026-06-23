@@ -1,7 +1,10 @@
+// CHANGED: Imported updatetodoSchema (partial schema) instead of the full schema, allowing
+// single-field updates (like toggles) without failing validation. Removed the incorrect
+// `.safeParse()` method call from the Mongoose `findByIdAndUpdate` promise chain.
 import { NextResponse } from 'next/server'
 import connectDB from '@/lib/mongodb'
 import Todo from '@/models/Todo'
-import createtodoSchema from '@/Validation/to.validation'
+import { updatetodoSchema } from '@/Validation/to.validation'
 
 export async function PUT(request, { params }) {
   try {
@@ -11,12 +14,13 @@ export async function PUT(request, { params }) {
     const newUpdateData = await request.json()
     const todoId = params.id
 
-    const result = createtodoSchema.safeParse(newUpdateData) // Validate the new update data against the schema
+    const result = updatetodoSchema.safeParse(newUpdateData) // Validate the new update data against the schema
     if (!result.success) {
-      return NextResponse.json({ error: result.error.message }, { status: 400 })
+      const errorMessage = result.error.errors.map(err => err.message).join(', ')
+      return NextResponse.json({ error: errorMessage }, { status: 400 })
     }
 
-    const updatedTodo = await Todo.findByIdAndUpdate(todoId, newUpdateData, { new: true }).safeParse() // Validate the updated data against the schema
+    const updatedTodo = await Todo.findByIdAndUpdate(todoId, newUpdateData, { new: true })
 
     if (!updatedTodo) {
       const notFoundError = { error: 'Task not found' }

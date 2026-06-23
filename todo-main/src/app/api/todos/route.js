@@ -3,6 +3,7 @@ import connectDB from '@/lib/mongodb'
 import Todo from '@/models/Todo'
 
 
+
 export async function GET() {
   try {
     await connectDB()
